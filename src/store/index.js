@@ -26,15 +26,8 @@ export default new Vuex.Store({
           ]
 
         }
+        
       ]
-    // "name": 'животные',
-    // "question": 'Какое это животное?',
-    // "animal": [
-    //   { 'src': '/models/dog.ply', name: "Собака" },
-    //   { 'src': '/models/dinov.ply', name: "Динозавр" }
-    // ]
-
-
     ,
     selectedTheme: null,
     selectedQ: {}
@@ -49,10 +42,10 @@ export default new Vuex.Store({
   mutations: {
     SET_SELECTED_THEME: (state, theme) => {
       state.selectedTheme = theme;
-     
+
     },
-    SET_SELECT_Q:(state,theme)=>{
-       state.questions.forEach(function (item) {
+    SET_SELECT_Q: (state, theme) => {
+      state.questions.forEach(function (item) {
         if (item.onclick == theme) {
           state.selectedQ = item;
         }
@@ -60,7 +53,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    
+
   },
   modules: {
   }
