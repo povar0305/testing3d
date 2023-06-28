@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-row justify="center">
+      <h3>Выберите тему</h3><v-row justify="space-around">
+      <v-col >
+        <v-sheet >
+          <v-chip-group mandatory active-class="primary--text">
+            <v-chip v-for="tag in tags" :key="tag">
+              {{ tag }}
+            </v-chip>
+          </v-chip-group>
+        </v-sheet>
+      </v-col>
+    </v-row>
+    </v-row>
+    
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style lang="scss">
+  components: {
+    //
+  },
+
+  data: () => ({
+      tags: [
+        'Work',
+        'Home Improvement',
+        'Vacation',
+        'Food',
+        'Drawers',
+        'Shopping',
+        'Art',
+        'Tech',
+        'Creative Writing',
+      ],
+    }),
+};
+</script>
+<style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 3rem;
 }
 </style>
