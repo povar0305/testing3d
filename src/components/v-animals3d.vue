@@ -4,7 +4,10 @@
       <v-card class="mx-auto" outlined>
         <v-list-item three-line>
           <v-list-item-content>
-            <div class="text-overline mb-4">Как хорошо ты знаешь животных</div>
+            <div class="text-overline mb-4">
+              Вопрос {{ this.i + 1 }} из
+              {{ this.$store.state.selectedQ.answer.length }}
+            </div>
             <v-list-item-title class="text-h5 mb-1">
               Выбери животное
             </v-list-item-title>
@@ -51,9 +54,30 @@
           >
             Проверить
           </v-btn>
+          <v-btn
+            rounded
+            color="deep-purple lighten-2"
+            dark
+            v-if="showNext"
+            @click="nextQuestion()"
+          >
+            Следующий вопрос
+          </v-btn>
         </div>
       </v-card>
     </v-col>
+
+    <!-- //TODO перенести в отдельный компонентн, так как это будет общее удеволнение -->
+    <v-alert v-if="this.alerts.show" :color="this.alerts.color">
+      <v-row justify="end" class="mb-1">
+        <v-icon color="white" @click="alerts.show = false">mdi-close</v-icon>
+      </v-row>
+
+      <p class="white--text">
+        <v-icon color="white">{{ this.alerts.icons }}</v-icon>
+        {{ this.alerts.text }}
+      </p>
+    </v-alert>
   </v-row>
 </template>  
 <script>
@@ -71,93 +95,133 @@ export default {
     return {
       answers: [],
       i: 0,
-      resultAnswer: null,
-      result: null,
-      resultClass: null,
+      resultAnswer: "",
+      countQ: 0,
+      result: Boolean,
+      resultClass: "",
+      alerts: {
+        show: false,
+        text: "",
+        icons: "",
+        color: "",
+      },
+      showNext: false,
+      scene: null,
+      camera: null,
+      controls: null,
+      renderer: null,
+      material: null,
+      loaderOBJ: null,
+      model: null,
     };
   },
   mounted() {
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    document.body.appendChild(renderer.domElement);
-    renderer.setClearColor(0x000000, 0);
-    renderer.setSize($(".scene").width(), $(".scene").height());
-
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      $(".scene").width() / $(".scene").height(),
-      1,
-      100
-    );
-    camera.position.set(10, 5, 0);
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.update();
-
-    for (let item of this.$store.state.selectedQ.answer) {
-      this.answers.push(item.name);
-    }
-
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
-    const material = new THREE.MeshStandardMaterial({ color: "gray" });
-    const loader = new OBJLoader();
-    loader.load(
-      this.$store.state.selectedQ.answer[this.i].src,
-      (object) => {
-        object.scale.set(5, 5, 5);
-        object.rotation.y = Math.PI / 2;
-        object.position.set(0, -5, 0);
-
-        object.traverse(function (child) {
-          if (child instanceof THREE.Mesh) {
-            child.material = material;
-          }
-        });
-        scene.add(object);
-      },
-      function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      function (error) {
-        console.log("An error happened", error);
-      }
-    );
-
-    var light = new THREE.AmbientLight("white", 1); // soft white light (мягкий белый свет)
-    scene.add(light);
-
-    $(".scene").html(renderer.domElement);
-
-    animate();
-    function animate() {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    }
+    this.initScene();
   },
   methods: {
     selectAnswer() {
       this.resultClass = " ";
-      console.log('this.resultClass',this.resultClass)
+      this.alerts.show = false;
+    },
+    animate() {
+      requestAnimationFrame(this.animate);
+      this.renderer.render(this.scene, this.camera);
     },
     checkAnswer() {
-      console.log(
-        this.resultAnswer,
-        this.$store.state.selectedQ.answer[this.i].name
-      );
       if (
         this.resultAnswer == this.$store.state.selectedQ.answer[this.i].name
       ) {
-        console.log("yes");
         this.result = true;
         this.resultClass = "rightAnswer";
+        this.alerts.text = "Поздравляю, ты правильно ответил на вопрос";
+        this.alerts.icons = "mdi-thumb-up";
+        this.alerts.color = "green darken-1";
+        this.showNext = true;
       } else {
-        console.log("no");
         this.result = false;
         this.resultClass = "errorAnswer";
+        this.alerts.text = "Увы, ты ошибся. Попробуй еще раз!";
+        this.alerts.icons = "mdi-thumb-down";
+        this.alerts.color = "red darken-1";
+        this.showNext = false;
       }
-      console.log(this.result);
+      this.alerts.show = true;
+    },
+    nextQuestion() {
+      this.showNext = true;
+      this.i = this.i + 1;
+      this.loadModels();
+      this.showNext = false;
+      this.alerts.show = false;
+      this.resultClass = "";
+    },
+    initScene() {
+      this.renderer = new THREE.WebGLRenderer({ alpha: true });
+      this.renderer.setClearColor(0x000000, 0);
+      this.renderer.setSize($(".scene").width(), $(".scene").height());
+      this.scene = new THREE.Scene();
+
+      this.camera = new THREE.PerspectiveCamera(
+        75,
+        $(".scene").width() / $(".scene").height(),
+        1,
+        100
+      );
+      this.camera.position.set(10, 5, 0);
+
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.update();
+
+      for (let item of this.$store.state.selectedQ.answer) {
+        this.answers.push(item.name);
+      }
+      // const axesHelper = new THREE.AxesHelper(5);
+      // this.scene.add(axesHelper);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+      directionalLight.position.set(10, 10, 0);
+
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 2);
+      directionalLight2.position.set(-10, 10, 0);
+
+      const directionalLight3 = new THREE.DirectionalLight(0xffffff, 2);
+      directionalLight3.position.set(0, 10, -10);
+      this.scene.add(directionalLight, directionalLight2, directionalLight3);
+      this.loadModels();
+    },
+    loadModels() {
+      console.log(this.scene.getObjectByName("model"));
+      if (this.scene.getObjectByName("model") != undefined) {
+        this.scene.remove(this.scene.getObjectByName("model"));
+      }
+      this.loaderOBJ = new OBJLoader();
+      this.loaderOBJ.load(
+        this.$store.state.selectedQ.answer[this.i].src,
+        (object) => {
+          object.scale.set(5, 5, 5);
+          object.rotation.y = Math.PI / 2;
+          object.position.set(0, -5, 0);
+          object.name = "model";
+          object.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+              child.material = new THREE.MeshStandardMaterial({
+                color: "gray",
+              });
+            }
+          });
+          this.model = object;
+          this.scene.add(this.model);
+        },
+        function (xhr) {
+          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        },
+        function (error) {
+          console.log("An error happened", error);
+        }
+      );
+      this.animate();
+
+      $(".scene").html(this.renderer.domElement);
     },
   },
 };
