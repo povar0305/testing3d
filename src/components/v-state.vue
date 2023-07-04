@@ -20,10 +20,7 @@ export default {
     };
   },
   mounted() {
-    console.log(
-      "this.$store.state.selectedQ",
-      this.$store.state.selectedQ.answer
-    );
+    
   },
 };
 </script>

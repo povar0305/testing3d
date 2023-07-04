@@ -38,7 +38,7 @@
                   >
                     <v-chip
                       class="blue lighten-4"
-                      v-for="answer in this.$store.state.selectedQ.answer"
+                      v-for="answer in this.answers"
                       :key="answer.name"
                       @input="selectAnswer()"
                       :value="answer.name"
@@ -103,7 +103,9 @@ export default {
       showNext: false,
     };
   },
-  created() {
+  mounted() {
+    this.answers=this.$store.getters.VARIANTS_ANSWER;
+
     //
   },
   methods: {
