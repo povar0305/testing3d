@@ -26,16 +26,12 @@
 <script>
 import VResultAlert from './components/v-result-alert'
 import VWrapperQuestion from './components/v-wrapperQuestion'
-import vState from './components/v-state.vue';
-import vAnimals3d from "./components/v-animals3d.vue";
 export default {
   name: "App",
 
   components: {
     VResultAlert,
     VWrapperQuestion,
-    vAnimals3d,
-    vState,
     //
   },
 

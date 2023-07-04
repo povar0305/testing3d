@@ -61,6 +61,7 @@
             Проверить
           </v-btn>
           <v-btn
+          class="mx-2"
             rounded
             color="deep-purple lighten-2"
             dark

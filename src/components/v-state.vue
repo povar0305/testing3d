@@ -1,28 +1,31 @@
 <template>
-    <v-row>
-    state
+  <v-row justify="center">
+    <v-img 
+    max-height="250"
+    contain
+    :src="this.$store.state.selectedQ.answer[this.$store.state.i].src">
+    </v-img>
   </v-row>
-  </template>
+</template>
   <script>
-  export default {
-  
-    name: "v-state",
-  
-    components: {
-      //
-    },
-    data: function () {
-      return {
-        i:0,
+export default {
+  name: "v-state",
 
-      //   counter: this.initialCounter
-      }
-    },
-    mounted(){
-     
-    }
-  };
-  </script>
+  components: {
+    //
+  },
+  data: function () {
+    return {
+      i: 0,
+    };
+  },
+  mounted() {
+    console.log(
+      "this.$store.state.selectedQ",
+      this.$store.state.selectedQ.answer
+    );
+  },
+};
+</script>
   <style>
-  
-  </style>
+</style>
