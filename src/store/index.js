@@ -8,27 +8,30 @@ export default new Vuex.Store({
     questions:
       [
         {
-          "name": 'животные',
+          "name": 'Животные 3D',
           'onclick': 'animals',
           "question": 'Какое это животное?',
+          "questionTwoTitle":'Внимательно рассмотри животное и выбери внизу правильный ответ',
           'answer': [
             { 'src': '/models/dog.obj', name: "Собака" },
             { 'src': '/models/dinov.obj', name: "Динозавр" }
           ]
 
         }, {
-          "name": 'животные2',
-          'onclick': 'animals2',
-          "question": 'Какое это животное?111111111111',
+          "name": 'Страны по флагам',
+          'onclick': 'state',
+          "question": 'Какой страны этот флаг?',
+          "questionTwoTitle":'Внимательно рассмотри картинку и выбери внизу чей это флаг',
           'answer': [
-            { 'src': '/models/dog.obj', name: "Собака222222222" },
-            { 'src': '/models/dinov.obj', name: "Динозавр11111111111111" }
+            { 'src': '/state/av.png', name: "Австралия" },
+            { 'src': '/state/avst.png', name: "Австрия" }
           ]
 
         }
         
       ]
     ,
+    i:0,
     selectedTheme: null,
     selectedQ: {}
   },

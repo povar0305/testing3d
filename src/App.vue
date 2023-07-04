@@ -18,24 +18,24 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <vAnimals3d
-      v-if="this.$store.state.selectedTheme == 'animals'"
-      @onAlertByResult="onAlertByResult"
-    ></vAnimals3d>
+    <VWrapperQuestion v-if="this.$store.state.selectedQ.answer !=undefined" @onAlertByResult="onAlertByResult"></VWrapperQuestion>
+    
   </v-app>
 </template>
 
 <script>
 import VResultAlert from './components/v-result-alert'
-import vResultAlert from "./components/v-result-alert.vue";
+import VWrapperQuestion from './components/v-wrapperQuestion'
+import vState from './components/v-state.vue';
 import vAnimals3d from "./components/v-animals3d.vue";
 export default {
   name: "App",
 
   components: {
     VResultAlert,
+    VWrapperQuestion,
     vAnimals3d,
-    vResultAlert,
+    vState,
     //
   },
 
@@ -51,6 +51,7 @@ export default {
       this.$store.commit("SET_SELECTED_THEME", theme);
       this.$store.commit("SET_SELECT_Q", theme);
     },
+    
     onAlertByResult(data) {
       this.result=data.result;
       console.log('this.result',this.result)

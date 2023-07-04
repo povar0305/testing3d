@@ -13,9 +13,7 @@
 <script>
 export default {
   props: ["result"],
-
-  name: "v-result-alert",
-
+  name: "VResultAlert",
   components: {
     //
   },
@@ -25,8 +23,7 @@ export default {
     }
   },
   mounted(){
-    console.log("wooooooooooooooow");
-    console.log(this.result)
+    console.log('vResultAlert')
   }
 };
 </script>
