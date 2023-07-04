@@ -120,12 +120,18 @@ export default {
       if (
         this.resultAnswer == this.$store.state.selectedQ.answer[this.i].name
       ) {
-        this.result = true;
-        this.resultClass = "rightAnswer";
-        this.alerts.text = "Поздравляю, ты правильно ответил на вопрос";
-        this.alerts.icons = "mdi-thumb-up";
-        this.alerts.color = "green darken-1";
-        this.showNext = true;
+        if (this.i + 1 == this.$store.state.selectedQ.answer.length) {
+          this.alerts.text = "Поздравляю, ты ответил на все вопросы правильно";
+          this.alerts.color = "deep-purple darken-1";
+          this.alerts.icons = "mdi-trophy-award";
+        } else {
+          this.result = true;
+          this.resultClass = "rightAnswer";
+          this.alerts.text = "Поздравляю, ты правильно ответил на вопрос";
+          this.alerts.icons = "mdi-thumb-up";
+          this.alerts.color = "green darken-1";
+          this.showNext = true;
+        }
       } else {
         this.result = false;
         this.resultClass = "errorAnswer";
@@ -133,22 +139,25 @@ export default {
         this.alerts.icons = "mdi-thumb-down";
         this.alerts.color = "red darken-1";
         this.showNext = false;
-      };
+      }
       this.alerts.show = true;
       this.pushInfoAlert();
     },
     nextQuestion() {
-      this.showNext = true;
-      this.i = this.i + 1;
-      this.loadModels();
-      this.showNext = false;
-      this.alerts.show = false;
-      this.resultClass = "";
+      if (this.i + 1 != this.$store.state.selectedQ.answer.length) {
+        this.showNext = true;
+        this.i = this.i + 1;
+        this.loadModels();
+        this.showNext = false;
+        this.alerts.show = false;
+        this.resultClass = "";
+        this.resultAnswer = "";
+      } else {
+        this.alerts.show = true;
+      }
       this.pushInfoAlert();
-      this.resultAnswer='';
-
     },
-    pushInfoAlert(){
+    pushInfoAlert() {
       this.$emit("onAlertByResult", {
         result: this.alerts,
       });
