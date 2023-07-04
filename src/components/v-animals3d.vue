@@ -66,18 +66,6 @@
         </div>
       </v-card>
     </v-col>
-
-    <!-- //TODO перенести в отдельный компонентн, так как это будет общее удеволнение -->
-    <v-alert v-if="this.alerts.show" :color="this.alerts.color">
-      <v-row justify="end" class="mb-1">
-        <v-icon color="white" @click="alerts.show = false">mdi-close</v-icon>
-      </v-row>
-
-      <p class="white--text">
-        <v-icon color="white">{{ this.alerts.icons }}</v-icon>
-        {{ this.alerts.text }}
-      </p>
-    </v-alert>
   </v-row>
 </template>  
 <script>
@@ -122,6 +110,7 @@ export default {
     selectAnswer() {
       this.resultClass = " ";
       this.alerts.show = false;
+      this.pushInfoAlert();
     },
     animate() {
       requestAnimationFrame(this.animate);
@@ -144,8 +133,9 @@ export default {
         this.alerts.icons = "mdi-thumb-down";
         this.alerts.color = "red darken-1";
         this.showNext = false;
-      }
+      };
       this.alerts.show = true;
+      this.pushInfoAlert();
     },
     nextQuestion() {
       this.showNext = true;
@@ -154,6 +144,14 @@ export default {
       this.showNext = false;
       this.alerts.show = false;
       this.resultClass = "";
+      this.pushInfoAlert();
+      this.resultAnswer='';
+
+    },
+    pushInfoAlert(){
+      this.$emit("onAlertByResult", {
+        result: this.alerts,
+      });
     },
     initScene() {
       this.renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -190,7 +188,6 @@ export default {
       this.loadModels();
     },
     loadModels() {
-      console.log(this.scene.getObjectByName("model"));
       if (this.scene.getObjectByName("model") != undefined) {
         this.scene.remove(this.scene.getObjectByName("model"));
       }
@@ -220,7 +217,6 @@ export default {
         }
       );
       this.animate();
-
       $(".scene").html(this.renderer.domElement);
     },
   },

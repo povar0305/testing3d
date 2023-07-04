@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <VResultAlert :result="this.result"></VResultAlert>
     <v-row justify="space-around">
       <v-col>
         <h3>Выберите тему</h3>
@@ -19,25 +20,40 @@
     </v-row>
     <vAnimals3d
       v-if="this.$store.state.selectedTheme == 'animals'"
+      @onAlertByResult="onAlertByResult"
     ></vAnimals3d>
   </v-app>
 </template>
 
 <script>
+import VResultAlert from './components/v-result-alert'
+import vResultAlert from "./components/v-result-alert.vue";
 import vAnimals3d from "./components/v-animals3d.vue";
 export default {
   name: "App",
 
   components: {
+    VResultAlert,
     vAnimals3d,
+    vResultAlert,
     //
   },
 
-  data: () => ({}),
+  data: () => {
+    return {
+      result: {
+        show:false
+      },
+    };
+  },
   methods: {
     selectTheme(theme, e) {
       this.$store.commit("SET_SELECTED_THEME", theme);
       this.$store.commit("SET_SELECT_Q", theme);
+    },
+    onAlertByResult(data) {
+      this.result=data.result;
+      console.log('this.result',this.result)
     },
   },
 };
