@@ -21,4 +21,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 возможность включать и выключать текстовые подсказки 
 
+модели свои
 флаги взяты с сайта https://www.iphones.ru/iNotes/all-about-emoji-ios-10

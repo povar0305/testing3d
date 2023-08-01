@@ -105,7 +105,7 @@ export default {
   },
   mounted() {
     this.answers=this.$store.getters.VARIANTS_ANSWER;
-
+console.log('this.answers',this.answers)
     //
   },
   methods: {
