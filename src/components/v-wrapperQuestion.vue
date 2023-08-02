@@ -61,7 +61,7 @@
             Проверить
           </v-btn>
           <v-btn
-          class="mx-2"
+            class="mx-2"
             rounded
             color="deep-purple lighten-2"
             dark
@@ -76,6 +76,8 @@
   </v-row>
 </template>  
   <script>
+import $ from "jquery";
+
 import vState from "./v-state.vue";
 import vScene3D from "./v-scene3D.vue";
 export default {
@@ -104,8 +106,8 @@ export default {
     };
   },
   mounted() {
-    this.answers=this.$store.getters.VARIANTS_ANSWER;
-console.log('this.answers',this.answers)
+    this.answers = this.$store.getters.VARIANTS_ANSWER;
+    console.log("this.answers", this.answers);
     //
   },
   methods: {
@@ -156,8 +158,7 @@ console.log('this.answers',this.answers)
         this.alerts.show = false;
         this.resultClass = "";
         this.resultAnswer = "";
-        this.answers=this.$store.getters.VARIANTS_ANSWER;
-
+        this.answers = this.$store.getters.VARIANTS_ANSWER;
       } else {
         this.alerts.show = true;
       }

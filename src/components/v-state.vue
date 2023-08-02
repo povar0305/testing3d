@@ -1,6 +1,5 @@
 <template>
   <v-row justify="center">
-<p>{{this.$store.state.selectedQ.answer[this.$store.state.i].name}}</p>
     <v-img 
     max-height="250"
     contain
