@@ -156,6 +156,8 @@ console.log('this.answers',this.answers)
         this.alerts.show = false;
         this.resultClass = "";
         this.resultAnswer = "";
+        this.answers=this.$store.getters.VARIANTS_ANSWER;
+
       } else {
         this.alerts.show = true;
       }
