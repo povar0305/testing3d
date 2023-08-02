@@ -41,6 +41,7 @@
                       v-for="answer in this.answers"
                       :key="answer.name"
                       @input="selectAnswer()"
+                      :class="{'rightAnswerWithError':answer.name==$store.state.selectedQ.answer[$store.state.i].name && result!=undefined && !result}"
                       :value="answer.name"
                     >
                       {{ answer.name }}
@@ -177,7 +178,7 @@ export default {
   background-color: #e53935 !important;
 }
 
-.rightAnswer span.v-chip.v-chip--active {
+.rightAnswer span.v-chip.v-chip--active,.rightAnswerWithError.v-chip.theme--light.v-chip:not(.v-chip--active) {
   background-color: #43a047 !important;
 }
 </style>

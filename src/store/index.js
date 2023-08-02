@@ -284,14 +284,14 @@ export default new Vuex.Store({
         let randIndex = Math.random() * (state.selectedQ.answer.length + 1);//получаем рандомный индекс
         randIndex = Math.floor(randIndex);
 
-        resultAnswer.push({ "name": state.selectedQ.answer[randIndex].name }); //добавляем ответ
+        resultAnswer.push({ "name": state.selectedQ.answer[randIndex].name,right:false }); //добавляем ответ
 
         i++;
       };
 
       // TODO добавить правильный вариант и перемешать массив
 
-      resultAnswer.push({ "name": state.selectedQ.answer[state.i].name }); //добавляем правильный ответ
+      resultAnswer.push({ "name": state.selectedQ.answer[state.i].name,right:true }); //добавляем правильный ответ
       //премешиваем массив
       for (let i = resultAnswer.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
