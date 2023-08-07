@@ -14,7 +14,7 @@ export default new Vuex.Store({
           "questionTwoTitle": 'Внимательно рассмотри животное и выбери внизу правильный ответ', //подсказка в названию
           'answer': [
             { 'src': '/models/dog.obj', name: "Собака" },
-            { 'src': '/models/dinov.obj', name: "Динозавр" }
+            { 'src': '/models/dinozavr2.obj', name: "Тиронозавр" },
           ]
         }, {
           "name": 'Страны по флагам',
