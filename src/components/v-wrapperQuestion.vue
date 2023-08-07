@@ -39,7 +39,7 @@
                   >
                     <v-chip
                       class="blue lighten-4"
-                      v-for="answer in this.answers"
+                      v-for="answer in this.$store.getters.VARIANTS_ANSWER"
                       :key="answer.name"
                       @input="selectAnswer()"
                       :class="{'rightAnswerWithError':answer.name==$store.state.selectedQ.answer[$store.state.i].name && result!=undefined && !result}"
@@ -79,7 +79,6 @@
 </template>  
   <script>
 import $ from "jquery";
-
 import vState from "./v-state.vue";
 import vScene3D from "./v-scene3D.vue";
 export default {
@@ -109,8 +108,7 @@ export default {
     };
   },
   mounted() {
-    this.answers = this.$store.getters.VARIANTS_ANSWER;
-    console.log("this.answers", this.answers);
+   
     //
   },
   methods: {
@@ -161,7 +159,6 @@ export default {
         this.alerts.show = false;
         this.resultClass = "";
         this.resultAnswer = "";
-        this.answers = this.$store.getters.VARIANTS_ANSWER;
       } else {
         this.alerts.show = true;
       }

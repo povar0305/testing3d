@@ -19,7 +19,6 @@ export default {
   },
   data: function () {
     return {
-    //   counter: this.initialCounter
     }
   },
   mounted(){
@@ -32,4 +31,5 @@ export default {
 .v-alert{
     position: absolute;
     right: 0px;
+    z-index: 5;
 }</style>

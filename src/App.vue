@@ -22,7 +22,6 @@
           elevation="0"
           fab
           @click="showSettings = !showSettings"
-
         >
           <v-icon>mdi-cog</v-icon></v-btn
         >

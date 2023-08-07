@@ -311,7 +311,6 @@ export default new Vuex.Store({
   mutations: {
     SET_SELECTED_THEME: (state, theme) => {
       state.selectedTheme = theme;
-
     },
     SET_SELECT_Q: (state, theme) => {
       state.questions.forEach(function (item) {
