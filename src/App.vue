@@ -19,27 +19,31 @@
       </v-col>
       <div class="settings">
         <v-btn
-          elevation="2"
+          elevation="0"
           fab
-          active-class="grey darken-1"
-          class="grey lighten-2"
           @click="showSettings = !showSettings"
+
         >
           <v-icon>mdi-cog</v-icon></v-btn
         >
-        <v-col class="settings-inner" v-show="showSettings" cols="auto">
+        <v-col
+          class="settings-inner rounded-lg"
+          v-bind:class="{ ' grey lighten-4': showSettings }"
+          v-show="showSettings"
+          cols="auto"
+        >
           <v-row
             class="align-center"
             v-for="setting in this.$store.state.settings"
             :key="setting.name"
-          >{{setting.status}}
+          >
             <v-switch
               color="primary"
               value
               :input-value="setting.status"
               :label="setting.text"
               class="mr-1"
-              @change="setting.status=!setting.status"
+              @change="setting.status = !setting.status"
             ></v-switch>
             <v-tooltip bottom v-if="setting.desc != ''">
               <template v-slot:activator="{ on, attrs }">
@@ -91,8 +95,7 @@ export default {
 
     onAlertByResult(data) {
       this.result = data.result;
-      console.log("this.result", this.result);
-    }
+    },
   },
 };
 </script>
@@ -118,10 +121,14 @@ export default {
   width: 250px;
   align-items: end;
   z-index: 3;
+  & button{
+    z-index: 4;
+  }
   &-inner {
     position: absolute;
     z-index: 2;
-    margin-top: 50px;
+    padding-top: 50px;
+    padding: 1.5rem;
   }
 }
 </style>
