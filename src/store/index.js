@@ -261,7 +261,7 @@ export default new Vuex.Store({
         'name': 'helpers', 
         'text': 'Подсказки',
         'desc':'',
-         'status': true
+         'status': false
       },
       {
         'name': 'controlTest',

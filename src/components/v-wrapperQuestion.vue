@@ -3,7 +3,7 @@
     <v-col>
       <v-card class="mx-auto" outlined>
         <v-list-item three-line>
-          {{ this.rightAnswer }}
+          {{ this.$store.state.rightAnswer }}
           <v-list-item-content>
             <div class="text-overline mb-4">
               Вопрос {{ this.$store.state.i + 1 }} из
@@ -42,7 +42,14 @@
                       v-for="answer in this.$store.getters.VARIANTS_ANSWER"
                       :key="answer.name"
                       @input="selectAnswer()"
-                      :class="{'rightAnswerWithError':answer.name==$store.state.selectedQ.answer[$store.state.i].name && result!=undefined && !result}"
+                      :class="{
+                        rightAnswerWithError:
+                          answer.name ==
+                            $store.state.selectedQ.answer[$store.state.i]
+                              .name &&
+                          result != undefined &&
+                          !result,
+                      }"
                       :value="answer.name"
                     >
                       {{ answer.name }}
@@ -104,11 +111,10 @@ export default {
         color: "",
       },
       showNext: false,
-      rightAnswer:0
+      rightAnswer: 0,
     };
   },
   mounted() {
-   
     //
   },
   methods: {
@@ -118,35 +124,52 @@ export default {
       this.pushInfoAlert();
     },
     checkAnswer() {
-      if (
-        this.resultAnswer ==
-        this.$store.state.selectedQ.answer[this.$store.state.i].name
-      ) {
-        if (
-          this.$store.state.i + 1 ==
-          this.$store.state.selectedQ.answer.length
-        ) {
-          this.alerts.text = "Поздравляю, ты ответил на все вопросы правильно";
-          this.alerts.color = "deep-purple darken-1";
-          this.alerts.icons = "mdi-trophy-award";
-        } else {
-          this.result = true;
-          this.resultClass = "rightAnswer";
-          this.alerts.text = "Поздравляю, ты правильно ответил на вопрос";
-          this.alerts.icons = "mdi-thumb-up";
-          this.alerts.color = "green darken-1";
-          this.showNext = true;
+      console.log(this.$store.state.settings);
+      for (let i in this.$store.state.settings) {
+        if (this.$store.state.settings[i].name == "controlTest") {
+          if (this.$store.state.settings[i].status) {
+            console.log("не считаем");
+            if (
+              this.resultAnswer ==
+              this.$store.state.selectedQ.answer[this.$store.state.i].name
+            ) {
+              this.$store.state.rightAnswer++;
+            }
+            this.nextQuestion();
+          } else {
+            if (
+              this.resultAnswer ==
+              this.$store.state.selectedQ.answer[this.$store.state.i].name
+            ) {
+              if (
+                this.$store.state.i + 1 ==
+                this.$store.state.selectedQ.answer.length
+              ) {
+                this.alerts.text =
+                  "Поздравляю, ты ответил на все вопросы правильно";
+                this.alerts.color = "deep-purple darken-1";
+                this.alerts.icons = "mdi-trophy-award";
+              } else {
+                this.result = true;
+                this.resultClass = "rightAnswer";
+                this.alerts.text = "Поздравляю, ты правильно ответил на вопрос";
+                this.alerts.icons = "mdi-thumb-up";
+                this.alerts.color = "green darken-1";
+                this.showNext = true;
+              }
+            } else {
+              this.result = false;
+              this.resultClass = "errorAnswer";
+              this.alerts.text = "Увы, ты ошибся. Попробуй еще раз!";
+              this.alerts.icons = "mdi-thumb-down";
+              this.alerts.color = "red darken-1";
+              this.showNext = false;
+            }
+            this.alerts.show = true;
+            this.pushInfoAlert();
+          }
         }
-      } else {
-        this.result = false;
-        this.resultClass = "errorAnswer";
-        this.alerts.text = "Увы, ты ошибся. Попробуй еще раз!";
-        this.alerts.icons = "mdi-thumb-down";
-        this.alerts.color = "red darken-1";
-        this.showNext = false;
       }
-      this.alerts.show = true;
-      this.pushInfoAlert();
     },
     nextQuestion() {
       if (
@@ -177,7 +200,8 @@ export default {
   background-color: #e53935 !important;
 }
 
-.rightAnswer span.v-chip.v-chip--active,.rightAnswerWithError.v-chip.theme--light.v-chip:not(.v-chip--active) {
+.rightAnswer span.v-chip.v-chip--active,
+.rightAnswerWithError.v-chip.theme--light.v-chip:not(.v-chip--active) {
   background-color: #43a047 !important;
 }
 </style>

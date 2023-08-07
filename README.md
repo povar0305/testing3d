@@ -23,3 +23,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 модели свои
 флаги взяты с сайта https://www.iphones.ru/iNotes/all-about-emoji-ios-10
+
+
+Баги
+при переключении между тестами не сбрасывается номер вопроса
