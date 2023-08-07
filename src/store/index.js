@@ -285,15 +285,13 @@ export default new Vuex.Store({
       let resultAnswer = [];
       let i = 0;
       let count = 3;
-      if (state.selectedQ.answer.length < 12) {
-        count = state.selectedQ.answer.length;
+      if (state.selectedQ.answer.length < count) {
+        count = state.selectedQ.answer.length-1;
       }
       while (i < count) { // выводит 0, затем 1, затем 2
         let randIndex = Math.random() * (state.selectedQ.answer.length + 1);//получаем рандомный индекс
         randIndex = Math.floor(randIndex);
-
         resultAnswer.push({ "name": state.selectedQ.answer[randIndex].name, right: false }); //добавляем ответ
-
         i++;
       };
 

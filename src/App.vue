@@ -88,6 +88,7 @@ export default {
   },
   methods: {
     selectTheme(theme, e) {
+      console.log('theme, e',theme, e)
       this.$store.commit("SET_SELECTED_THEME", theme);
       this.$store.commit("SET_SELECT_Q", theme);
     },

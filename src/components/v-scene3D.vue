@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div  class="scene"></div>
+        <div :title=this.count class="scene"></div>
     </div>
 </template>
 <script>

@@ -128,14 +128,28 @@ export default {
       for (let i in this.$store.state.settings) {
         if (this.$store.state.settings[i].name == "controlTest") {
           if (this.$store.state.settings[i].status) {
-            console.log("не считаем");
+            console.log("не считаем",this.resultAnswer,this.$store.state.selectedQ.answer[this.$store.state.i].name);
             if (
               this.resultAnswer ==
               this.$store.state.selectedQ.answer[this.$store.state.i].name
             ) {
+              //если правильно ответили, то считаем
               this.$store.state.rightAnswer++;
             }
-            this.nextQuestion();
+            if (
+              this.$store.state.i + 1 ==
+              this.$store.state.selectedQ.answer.length
+            ) {
+              //Если последний вопрос
+              this.alerts.text =
+                "Поздравляю, ты ответил правильно на "+ this.$store.state.rightAnswer+" вопросов из "+this.$store.state.selectedQ.answer.length;
+              this.alerts.color = "deep-purple darken-1";
+              this.alerts.icons = "mdi-trophy-award";
+              this.alerts.show = true;
+              this.pushInfoAlert();
+            } else {
+              this.nextQuestion();
+            }
           } else {
             if (
               this.resultAnswer ==
@@ -172,12 +186,13 @@ export default {
       }
     },
     nextQuestion() {
+      console.log('nextQuestion')
       if (
         this.$store.state.i + 1 !=
         this.$store.state.selectedQ.answer.length
       ) {
         this.showNext = true;
-        this.$store.state.i = this.$store.state.i + 1;
+        this.$store.state.i++;
         this.showNext = false;
         this.alerts.show = false;
         this.resultClass = "";
