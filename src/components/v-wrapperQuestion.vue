@@ -3,6 +3,7 @@
     <v-col>
       <v-card class="mx-auto" outlined>
         <v-list-item three-line>
+          {{ this.rightAnswer }}
           <v-list-item-content>
             <div class="text-overline mb-4">
               Вопрос {{ this.$store.state.i + 1 }} из
@@ -104,6 +105,7 @@ export default {
         color: "",
       },
       showNext: false,
+      rightAnswer:0
     };
   },
   mounted() {

@@ -5,25 +5,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    questions:
+    questions: //список тестов
       [
         {
-          "name": 'Животные 3D',
-          'onclick': 'animals',
-          "question": 'Какое это животное?',
-          "questionTwoTitle": 'Внимательно рассмотри животное и выбери внизу правильный ответ',
+          "name": 'Животные 3D',//название теста
+          'onclick': 'animals', 
+          "question": 'Какое это животное?', //вопрос к тесту
+          "questionTwoTitle": 'Внимательно рассмотри животное и выбери внизу правильный ответ', //подсказка в названию
           'answer': [
             { 'src': '/models/dog.obj', name: "Собака" },
             { 'src': '/models/dinov.obj', name: "Динозавр" }
           ]
-
         }, {
           "name": 'Страны по флагам',
           'onclick': 'state',
           "question": 'Какой страны этот флаг?',
           "questionTwoTitle": 'Внимательно рассмотри картинку и выбери внизу чей это флаг',
           'answer': [
-
             { 'src': '/state/braz.png', name: "Бразилия" },
             { 'src': '/state/grets.png', name: "Греция" },
             { 'src': '/state/gruz.png', name: "Грузия" },
@@ -61,7 +59,6 @@ export default new Vuex.Store({
             { 'src': '/state/amer.png', name: "Американское Самоа" },
             { 'src': '/state/andor.png', name: "Андорра" },
             { 'src': '/state/angil.png', name: "Ангилья" },
-
             { 'src': '/state/fin.png', name: "Финляндия" },
             { 'src': '/state/folk.png', name: "Фолклендские острова" },
             { 'src': '/state/franggven.png', name: "Французская Гвинея" },
@@ -102,7 +99,6 @@ export default new Vuex.Store({
             { 'src': '/state/pol.png', name: "Польша" },
             { 'src': '/state/port.png', name: "Португалия" },
             { 'src': '/state/pyer.png', name: "Пуэрто-Рико" },
-
             { 'src': '/state/brun.png', name: "Бруней" },
             { 'src': '/state/butan.png', name: "Бутан" },
             { 'src': '/state/bolg.png', name: "Болгария" },
@@ -257,15 +253,27 @@ export default new Vuex.Store({
             { 'src': '/state/pala.png', name: "Палау" },
             { 'src': '/state/pales.png', name: "Палестина" },
           ]
-
         }
-
       ]
     ,
+    settings: [ //список настроек 
+      {
+        'name': 'helpers', 
+        'text': 'Подсказки',
+        'desc':'',
+         'status': true
+      },
+      {
+        'name': 'controlTest',
+        'text': 'Контрольный тест',
+        'desc':'Подсчитавать результаты теста в конце',
+         'status': false
+      }, 
+    ],
     i: 0,
     selectedTheme: null,
     selectedQ: {},
-    rightAnswer:0
+    rightAnswer: 0,
   },
   getters: {
     SELECTED_THEME: state => {
@@ -284,20 +292,20 @@ export default new Vuex.Store({
         let randIndex = Math.random() * (state.selectedQ.answer.length + 1);//получаем рандомный индекс
         randIndex = Math.floor(randIndex);
 
-        resultAnswer.push({ "name": state.selectedQ.answer[randIndex].name,right:false }); //добавляем ответ
+        resultAnswer.push({ "name": state.selectedQ.answer[randIndex].name, right: false }); //добавляем ответ
 
         i++;
       };
 
       // TODO добавить правильный вариант и перемешать массив
 
-      resultAnswer.push({ "name": state.selectedQ.answer[state.i].name,right:true }); //добавляем правильный ответ
+      resultAnswer.push({ "name": state.selectedQ.answer[state.i].name, right: true }); //добавляем правильный ответ
       //премешиваем массив
       for (let i = resultAnswer.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [resultAnswer[i], resultAnswer[j]] = [resultAnswer[j], resultAnswer[i]];
       }
-                  return resultAnswer;
+      return resultAnswer;
     }
   },
   mutations: {
