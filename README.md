@@ -1,29 +1,36 @@
-# testing3d
+# Название проекта - Тесты
 
-## Project setup
-```
-npm install
-```
+Данный проект был изначально разработан как тестя дл детей дошкольного возраста. Однако, может наполняться или дополняться под нужные тесты.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+**В первой версии** ребенок должен был с помощью 3Д модели угадать, что это за животное. Модели были сделаны мной в Blender, используя метод Low Poly, референсы брала с [вот этого сайта](https://www.dimensions.com/classifications/animals).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+**Во второй версии** проекта добавились тесты с картинками (использовала  для примера тест на знание стран и флагов). Чтобы добиться единого стиля у картинок с изображением флагов, они были взяты [тут](https://www.iphones.ru/iNotes/all-about-emoji-ios-10).
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+В каждом из типов вопроса (с 3Д моделью или просто картинкой) можно изменить тематику, зависит от заполненного vuex. 
+
+## Использовала
+* Vuex для хранения 
+* Vuetify для единого стиля
+* Three js для отображения 3Д моделей
+* Blender для моделирования
+* Visual Studio для работы с кодом
+
+**В третьей версии** был добавлен блок с настройками теста - управление подсказками, а так же режимом Контрольный тест.
+
+Если включены подсказки, то в карточке вопроса появляется иконка с лампочкой, при нажатии на нее под вариантами ответов появляется подсказка.
+Контрольный тест - специальный режим, в котором подсчет правильный и не правильный ответов идет только в конце теста. Если этот режим не включен, то после каждого ответа можно проверить его "правильность"
+
+##Скриншоты
+
+![image](https://github.com/povar0305/testing3d/assets/73982948/e7300b26-e186-4ea5-94b5-625ad12eb2c8)
+![image](https://github.com/povar0305/testing3d/assets/73982948/d54280e0-406e-4b96-8f26-a7fcdbeed0dd)
+![image](https://github.com/povar0305/testing3d/assets/73982948/66d8a17c-5dc7-4781-bae1-f19b88a779ff)
+![image](https://github.com/povar0305/testing3d/assets/73982948/ce5ce270-48cd-4eaa-91df-aac202209e98)
+![image](https://github.com/povar0305/testing3d/assets/73982948/d95439f9-86c5-486c-af70-feb36bedce80)
+![image](https://github.com/povar0305/testing3d/assets/73982948/f30b3dc8-55a7-4014-ab91-5fe7328a2c60)
+![image](https://github.com/povar0305/testing3d/assets/73982948/d7ce3c77-49ac-427f-9acb-c0795586c378)
+![image](https://github.com/povar0305/testing3d/assets/73982948/55b148b0-58da-4cb9-a94f-90863c65db69)
 
 
-возможность включать и выключать текстовые подсказки 
-
-модели свои
-флаги взяты с сайта https://www.iphones.ru/iNotes/all-about-emoji-ios-10
 
 
-Баги
-при переключении между тестами не сбрасывается номер вопроса
