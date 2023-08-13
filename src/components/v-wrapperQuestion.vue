@@ -4,12 +4,18 @@
       <v-card class="mx-auto" outlined>
         <v-list-item three-line>
           <v-list-item-content>
-            <div class="text-overline mb-4">
+            <div class="text-overline mb-4 ">
               Вопрос {{ this.$store.state.i + 1 }} из
               {{ this.$store.state.selectedQ.answer.length }}
+              
             </div>
-            <v-list-item-title class="text-h5 mb-1">
-              {{ this.$store.state.selectedQ.question }}
+            <v-list-item-title class="text-h5 mb-1 d-flex justify-space-between align-center">
+              <p>
+                {{ this.$store.state.selectedQ.question }}
+              </p>
+              <v-btn elevation="0" class="pa-0" fab @click="showHelp = !showHelp" v-if="this.$store.state.settings[0].status"  :class="{'yellow accent-2':showHelp}">
+                <v-icon >mdi-lightbulb-on</v-icon>
+              </v-btn>
             </v-list-item-title>
             <v-list-item-subtitle>
               {{
@@ -56,6 +62,15 @@
                   </v-chip-group>
                 </div>
               </v-sheet>
+            </v-col>
+          </v-row>
+          <v-row v-show="showHelp">
+            <v-col>
+              <p class="text-start">
+                {{
+                  this.$store.state.selectedQ.answer[this.$store.state.i].desc
+                }}
+              </p>
             </v-col>
           </v-row>
         </v-card-actions>
@@ -111,6 +126,7 @@ export default {
       },
       showNext: false,
       rightAnswer: 0,
+      showHelp:false,
     };
   },
   mounted() {
@@ -127,7 +143,11 @@ export default {
       for (let i in this.$store.state.settings) {
         if (this.$store.state.settings[i].name == "controlTest") {
           if (this.$store.state.settings[i].status) {
-            console.log("не считаем",this.resultAnswer,this.$store.state.selectedQ.answer[this.$store.state.i].name);
+            console.log(
+              "не считаем",
+              this.resultAnswer,
+              this.$store.state.selectedQ.answer[this.$store.state.i].name
+            );
             if (
               this.resultAnswer ==
               this.$store.state.selectedQ.answer[this.$store.state.i].name
@@ -141,7 +161,10 @@ export default {
             ) {
               //Если последний вопрос
               this.alerts.text =
-                "Поздравляю, ты ответил правильно на "+ this.$store.state.rightAnswer+" вопросов из "+this.$store.state.selectedQ.answer.length;
+                "Поздравляю, ты ответил правильно на " +
+                this.$store.state.rightAnswer +
+                " вопросов из " +
+                this.$store.state.selectedQ.answer.length;
               this.alerts.color = "deep-purple darken-1";
               this.alerts.icons = "mdi-trophy-award";
               this.alerts.show = true;
@@ -185,7 +208,7 @@ export default {
       }
     },
     nextQuestion() {
-      console.log('nextQuestion')
+      console.log("nextQuestion");
       if (
         this.$store.state.i + 1 !=
         this.$store.state.selectedQ.answer.length

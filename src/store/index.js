@@ -13,8 +13,8 @@ export default new Vuex.Store({
           "question": 'Какое это животное?', //вопрос к тесту
           "questionTwoTitle": 'Внимательно рассмотри животное и выбери внизу правильный ответ', //подсказка в названию
           'answer': [
-            { 'src': '/models/dog.obj', name: "Собака" },
-            { 'src': '/models/dinozavr2.obj', name: "Тиронозавр" },
+            { 'src': '/models/dog.obj', name: "Собака", desc:"Домашнее животное, одно из наиболее популярных животных-компаньонов"},
+            { 'src': '/models/dinozavr2.obj', name: "Тиронозавр", desc:"Род плотоядных тероподовых динозавров из семейства тираннозаврид, включающий единственный валидный вид — Tyrannosaurus rex" },
           ]
         }, {
           "name": 'Страны по флагам',
@@ -22,14 +22,14 @@ export default new Vuex.Store({
           "question": 'Какой страны этот флаг?',
           "questionTwoTitle": 'Внимательно рассмотри картинку и выбери внизу чей это флаг',
           'answer': [
-            { 'src': '/state/braz.png', name: "Бразилия" },
-            { 'src': '/state/grets.png', name: "Греция" },
-            { 'src': '/state/gruz.png', name: "Грузия" },
-            { 'src': '/state/gvad.png', name: "Гваделупа" },
-            { 'src': '/state/gvat.png', name: "Гватемала" },
-            { 'src': '/state/gyam.png', name: "Гуама" },
-            { 'src': '/state/gzcher.png', name: "Остров Джерси" },
-            { 'src': '/state/iam.png', name: "Ямайка" },
+            { 'src': '/state/braz.png', name: "Бразилия", desc:"Крупнейший в мире производитель топлива из сахарного тростника, которое можно использовать вместо нефтепродуктов" },
+            { 'src': '/state/grets.png', name: "Греция", desc:"Занимает юго-восточную часть Балканского полуострова и насчитывает, по разным данным, от 1400 до 6000 островов" },
+            { 'src': '/state/gruz.png', name: "Грузия", },
+            { 'src': '/state/gvad.png', name: "Гваделупа"},
+            { 'src': '/state/gvat.png', name: "Гватемала"},
+            { 'src': '/state/gyam.png', name: "Гуама"},
+            { 'src': '/state/gzcher.png', name: "Остров Джерси"},
+            { 'src': '/state/iam.png', name: "Ямайка"},
             { 'src': '/state/sentvens.png', name: "Бурунди" },
             { 'src': '/state/serb.png', name: "Сербия" },
             { 'src': '/state/sevkor.png', name: "Северная Корея" },
@@ -295,7 +295,6 @@ export default new Vuex.Store({
         i++;
       };
 
-      // TODO добавить правильный вариант и перемешать массив
 
       resultAnswer.push({ "name": state.selectedQ.answer[state.i].name, right: true }); //добавляем правильный ответ
       //премешиваем массив

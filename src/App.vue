@@ -23,7 +23,8 @@
           fab
           @click="showSettings = !showSettings"
         >
-          <v-icon>mdi-cog</v-icon></v-btn
+          <v-icon>mdi-cog</v-icon>
+          </v-btn
         >
         <v-col
           class="settings-inner rounded-lg"
